@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
+CFLAGS=-g -std=gnu99 -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
 LIBS=-ldl $(OPTLIBS)
 PREFIX?=/usr/local
 
@@ -32,7 +32,7 @@ build:
 
 # The Unit Tests
 .PHONY: tests
-tests: CFLAGS += $(TARGET)
+tests: CFLAGS += $(SO_TARGET)
 tests: $(TESTS)
 	sh ./tests/runtests.sh
 
