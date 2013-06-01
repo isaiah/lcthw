@@ -137,12 +137,17 @@ error:
 
 int Hashmap_traverse(Hashmap *map, Hashmap_traverse_cb cb) {
         int rc = 0;
+        int count = DArray_count(map->buckets);
+        debug("total buckets_count %d", count);
         for (int i = 0; i < DArray_count(map->buckets); i++) {
                 DArray *bucket = DArray_get(map->buckets, i);
                 if (bucket) {
+                        int buckets_count = DArray_count(bucket);
+                        debug("buckets_count %d %d", i, buckets_count);
                         for (int j = 0; j < DArray_count(bucket); j++) {
                                 HashmapNode *node = DArray_get(bucket, j);
                                 rc = cb(node);
+                                debug("traverse %d, %d", i, j);
                                 if (rc != 0) return rc;
                         }
                 }
